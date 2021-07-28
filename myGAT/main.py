@@ -1,5 +1,5 @@
 import time
-import numpy as np
+
 import torch.optim as optim
 import torch.nn.functional as F
 
@@ -41,11 +41,29 @@ def train(epoch):
     model.eval()
     output = model(features, adj)
 
-    loss_val = F.nll_loss(output[idx_val], labels[idx_train])
+    loss_val = F.nll_loss(output[idx_val], labels[idx_val])
     acc_val = accuarcy(output[idx_val], labels[idx_val])
+
+    print('Epoch: {:04d}'.format(epoch + 1),
+          'loss_train: {:.4f}'.format(loss_train.data.item()),
+          'acc_train: {:.4f}'.format(acc_train.data.item()),
+          'loss_val: {:.4f}'.format(loss_val.data.item()),
+          'acc_val: {:.4f}'.format(acc_val.data.item()),
+          'time: {:.4f}s'.format(time.time() - t))
+
+
+def test():
+    model.eval()
+    output = model(features, adj)
+    loss_test = F.nll_loss(output[idx_test], labels[idx_test])
+    acc_test = accuarcy(output[idx_test], labels[idx_test])
+    print("Test set results:",
+          "loss= {:.4f}".format(loss_test.item()),
+          "accuracy= {:.4f}".format(acc_test.item()))
 
 
 if __name__ == '__main__':
     epochs = 100
     for epoch in range(epochs):
         train(epoch)
+    test()

@@ -5,12 +5,12 @@ import torch
 import torch.optim as optim
 import torch.nn.functional as F
 
-from src.model import GCN
-from src.dataset import Dataset
-from src.utils import normalize, accuracy, sparse_mx_to_torch_sparse_tensor
+from model import GCN
+from dataset import Dataset
+from utils import normalize, accuracy, sparse_mx_to_torch_sparse_tensor
 
 
-cora = Dataset('../../data/cora', 'cora')
+cora = Dataset('../data/cora', 'cora')
 cora.load_data()
 
 features = getattr(cora, 'cora_features')

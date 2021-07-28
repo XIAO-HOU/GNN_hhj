@@ -2,7 +2,7 @@ import argparse
 import pyhocon
 
 from src.dataCenter import *
-from src.utils import *
+from utils import *
 from src.models import *
 
 parser = argparse.ArgumentParser(description='pytorch version of GraphSAGE')
